@@ -1,6 +1,6 @@
 # XcodeBuildMCP Tools Reference
 
-XcodeBuildMCP provides 61 tools organized into 12 workflow groups for comprehensive Apple development workflows.
+XcodeBuildMCP provides 62 tools organized into 12 workflow groups for comprehensive Apple development workflows.
 
 ## Workflow Groups
 
@@ -19,7 +19,7 @@ XcodeBuildMCP provides 61 tools organized into 12 workflow groups for comprehens
 - `stop_app_device` - Stops an app running on a physical Apple device (iPhone, iPad, Apple Watch, Apple TV, Apple Vision Pro). Requires deviceId and processId.
 - `test_device` - Runs tests for an Apple project or workspace on a physical device (iPhone, iPad, Apple Watch, Apple TV, Apple Vision Pro) using xcodebuild test and parses xcresult output. Provide exactly one of projectPath or workspacePath.
 ### iOS Simulator Development (`simulator`)
-**Purpose**: Complete iOS development workflow for both .xcodeproj and .xcworkspace files targeting simulators. Build, test, deploy, and interact with iOS apps on simulators. (12 tools)
+**Purpose**: Complete iOS development workflow for both .xcodeproj and .xcworkspace files targeting simulators. Build, test, deploy, and interact with iOS apps on simulators. (13 tools)
 
 - `boot_sim` - Boots an iOS simulator. After booting, use open_sim() to make the simulator visible.
 - `build_run_sim` - Builds and runs an app from a project or workspace on a specific simulator by UUID or name. Provide exactly one of projectPath or workspacePath, and exactly one of simulatorId or simulatorName.
@@ -30,6 +30,7 @@ XcodeBuildMCP provides 61 tools organized into 12 workflow groups for comprehens
 - `launch_app_sim` - Launches an app in an iOS simulator by UUID or name. If simulator window isn't visible, use open_sim() first. or launch_app_sim({ simulatorName: 'iPhone 16', bundleId: 'com.example.MyApp' })
 - `list_sims` - Lists available iOS simulators with their UUIDs.
 - `open_sim` - Opens the iOS Simulator app.
+- `preview_swiftui` - Generates a SwiftUI preview snapshot by building with xcodebuild-nvim-preview support. Requires adding xcodebuild-nvim-preview Swift package to your project and .setupNvimPreview() on previews.
 - `record_sim_video` - Starts or stops video capture for an iOS simulator using AXe. Provide exactly one of start=true or stop=true. On stop, outputFile is required. fps defaults to 30.
 - `stop_app_sim` - Stops an app running in an iOS simulator by UUID or name. or stop_app_sim({ simulatorName: "iPhone 16", bundleId: "com.example.MyApp" })
 - `test_sim` - Runs tests on a simulator by UUID or name using xcodebuild test and parses xcresult output. Works with both Xcode projects (.xcodeproj) and workspaces (.xcworkspace).
