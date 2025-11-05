@@ -1,0 +1,98 @@
+# Xcode Preview Binaries for Ghidra Analysis
+# Priority ordered - start from the top
+
+# ============================================
+# TIER 1: Core Rendering Pipeline (START HERE)
+# ============================================
+
+# PreviewsPipeline.framework (7.6 MB) - HIGHEST PRIORITY
+/Applications/Xcode.app/Contents/SharedFrameworks/PreviewsPipeline.framework/Versions/A/PreviewsPipeline
+
+# PreviewsFoundationHost.framework (2.4 MB) - Preview process host
+/Applications/Xcode.app/Contents/SharedFrameworks/PreviewsFoundationHost.framework/Versions/A/PreviewsFoundationHost
+
+# PreviewsXcode.framework (6.4 MB) - Xcode IDE integration
+/Applications/Xcode.app/Contents/PlugIns/PreviewsXcode.framework/Versions/A/PreviewsXcode
+
+# ============================================
+# TIER 2: Communication & Injection
+# ============================================
+
+# PreviewsMessagingHost.framework (1.6 MB) - XPC communication
+/Applications/Xcode.app/Contents/SharedFrameworks/PreviewsMessagingHost.framework/Versions/A/PreviewsMessagingHost
+
+# PreviewsUI.framework (1.0 MB) - Canvas UI
+/Applications/Xcode.app/Contents/SharedFrameworks/PreviewsUI.framework/Versions/A/PreviewsUI
+
+# ============================================
+# TIER 3: Supporting Infrastructure
+# ============================================
+
+# IDEFoundation.framework (17 MB) - Build integration (large!)
+/Applications/Xcode.app/Contents/Frameworks/IDEFoundation.framework/Versions/A/IDEFoundation
+
+# DebugHierarchyFoundation.framework (292 KB) - View hierarchy
+/Applications/Xcode.app/Contents/SharedFrameworks/DebugHierarchyFoundation.framework/Versions/A/DebugHierarchyFoundation
+
+# DVTKit.framework (2.2 MB) - Developer tools infrastructure
+/Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Versions/A/DVTKit
+
+# DTDeviceKitBase.framework (612 KB) - Device management
+/Applications/Xcode.app/Contents/SharedFrameworks/DTDeviceKitBase.framework/Versions/A/DTDeviceKitBase
+
+# ============================================
+# ADDITIONAL FRAMEWORKS (Find as needed)
+# ============================================
+
+# Run these commands to locate additional preview frameworks:
+
+# PreviewsInjection.framework - Hot-reload infrastructure
+# find /Applications/Xcode.app/Contents -name "PreviewsInjection.framework" -type d
+
+# PreviewsFoundationOS.framework - OS-level preview support
+# find /Applications/Xcode.app/Contents -name "PreviewsFoundationOS.framework" -type d
+
+# PreviewsServices.framework - Preview services
+# find /Applications/Xcode.app/Contents -name "PreviewsServices.framework" -type d
+
+# PreviewShellKit.framework - Shell integration
+# find /Applications/Xcode.app/Contents -name "PreviewShellKit.framework" -type d
+
+# PreviewsSyntax.framework - Swift syntax analysis
+# find /Applications/Xcode.app/Contents -name "PreviewsSyntax.framework" -type d
+
+# ============================================
+# SYSTEM FRAMEWORKS (May require SIP disable)
+# ============================================
+
+# SwiftUI.framework - Core SwiftUI (if accessible)
+# /System/Library/Frameworks/SwiftUI.framework/Versions/A/SwiftUI
+
+# ViewFoundation.framework - SwiftUI internals (if accessible)
+# /System/Library/PrivateFrameworks/ViewFoundation.framework/Versions/A/ViewFoundation
+
+# ============================================
+# QUICK START FOR GHIDRA
+# ============================================
+
+# 1. Load PreviewsPipeline first (highest signal for rendering pipeline)
+# 2. Enable Swift demangling in Ghidra: Edit → Tool Options → Demangler
+# 3. Search for strings: "render", "snapshot", "capture", "image"
+# 4. Look for UIGraphicsImageRenderer, CGImage, NSBitmapImageRep references
+# 5. Cross-reference to find rendering flow
+
+# ============================================
+# VALIDATION COMMANDS
+# ============================================
+
+# Check if files exist:
+# ls -lh /Applications/Xcode.app/Contents/SharedFrameworks/PreviewsPipeline.framework/Versions/A/PreviewsPipeline
+
+# View symbols:
+# nm -g /Applications/Xcode.app/Contents/SharedFrameworks/PreviewsPipeline.framework/Versions/A/PreviewsPipeline | head -20
+
+# View dependencies:
+# otool -L /Applications/Xcode.app/Contents/SharedFrameworks/PreviewsPipeline.framework/Versions/A/PreviewsPipeline
+
+# Extract strings:
+# strings /Applications/Xcode.app/Contents/SharedFrameworks/PreviewsPipeline.framework/Versions/A/PreviewsPipeline | grep -i "render"
