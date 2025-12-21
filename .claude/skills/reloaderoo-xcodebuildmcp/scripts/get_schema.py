@@ -30,7 +30,7 @@ def run_reloaderoo_inspect(command: List[str]) -> Dict:
     """
     try:
         # Build full command
-        full_cmd = ['npx', 'reloaderoo@latest', 'inspect'] + command + ['--', 'node', 'build/index.js']
+        full_cmd = ['npx', 'reloaderoo@latest', 'inspect'] + command + ['-q', '--', 'npx', 'xcodebuildmcp@latest']
 
         # Execute command
         result = subprocess.run(
@@ -171,9 +171,9 @@ def format_schema_text(tool_name: str, schema: Dict, verbose: bool = False) -> s
         example_json = json.dumps(example_params, indent=2)
         output.append(f"  npx reloaderoo@latest inspect call-tool {tool_name} \\")
         output.append(f"    --params '{example_json}' \\")
-        output.append(f"    -- node build/index.js")
+        output.append(f"    -q -- npx xcodebuildmcp@latest")
     else:
-        output.append(f"  npx reloaderoo@latest inspect call-tool {tool_name} --params '{{}}' -- node build/index.js")
+        output.append(f"  npx reloaderoo@latest inspect call-tool {tool_name} --params '{{}}' -q -- npx xcodebuildmcp@latest")
 
     output.append("")
 

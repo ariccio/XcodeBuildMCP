@@ -10,7 +10,7 @@ Gets the complete UI hierarchy of the current screen.
 ```bash
 npx reloaderoo@latest inspect call-tool describe_ui \
   --params '{"simulatorUuid": "SIMULATOR-UUID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Returns:** Accessibility tree with element types, labels, coordinates, and identifiers.
@@ -26,7 +26,7 @@ Takes a screenshot of the current simulator screen.
 ```bash
 npx reloaderoo@latest inspect call-tool screenshot \
   --params '{"simulatorUuid": "SIMULATOR-UUID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Output:** Screenshot image data or file path.
@@ -39,7 +39,7 @@ Performs a single tap at specific coordinates.
 ```bash
 npx reloaderoo@latest inspect call-tool tap \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "x": 100, "y": 200}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Coordinates:** Origin (0,0) is top-left corner.
@@ -50,7 +50,7 @@ Performs a long press (tap and hold) at coordinates.
 ```bash
 npx reloaderoo@latest inspect call-tool long_press \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "x": 100, "y": 200, "duration": 1500}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Duration:** Milliseconds to hold the press (default: 1000ms).
@@ -61,7 +61,7 @@ Performs a swipe gesture between two points.
 ```bash
 npx reloaderoo@latest inspect call-tool swipe \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "x1": 100, "y1": 400, "x2": 100, "y2": 200}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Parameters:**
@@ -81,12 +81,12 @@ Simulates a touch down or touch up event at coordinates.
 # Touch down
 npx reloaderoo@latest inspect call-tool touch \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "x": 100, "y": 200, "down": true}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # Touch up
 npx reloaderoo@latest inspect call-tool touch \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "x": 100, "y": 200, "down": false}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Use case:** Low-level touch event simulation for custom gestures.
@@ -97,7 +97,7 @@ Performs a pre-defined gesture preset.
 ```bash
 npx reloaderoo@latest inspect call-tool gesture \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "preset": "scroll-up"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Available presets:**
@@ -116,7 +116,7 @@ Types text into the currently focused text field.
 ```bash
 npx reloaderoo@latest inspect call-tool type_text \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "text": "Hello, World!"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Requirements:** A text field must be focused (tap on text field first).
@@ -129,7 +129,7 @@ Simulates a single key press by key code.
 ```bash
 npx reloaderoo@latest inspect call-tool key_press \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "keyCode": 40}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Common key codes:**
@@ -145,7 +145,7 @@ Simulates a sequence of key presses.
 ```bash
 npx reloaderoo@latest inspect call-tool key_sequence \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "keyCodes": [40, 42, 44]}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Use case:** Complex keyboard interactions or shortcuts.
@@ -158,7 +158,7 @@ Simulates a hardware button press (Home, Lock, Volume, etc.).
 ```bash
 npx reloaderoo@latest inspect call-tool button \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "buttonType": "home"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Available buttons:**
@@ -175,32 +175,32 @@ npx reloaderoo@latest inspect call-tool button \
 # 1. Describe UI to find text field coordinates
 npx reloaderoo@latest inspect call-tool describe_ui \
   --params '{"simulatorUuid": "UUID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 2. Tap on username field
 npx reloaderoo@latest inspect call-tool tap \
   --params '{"simulatorUuid": "UUID", "x": 150, "y": 200}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Type username
 npx reloaderoo@latest inspect call-tool type_text \
   --params '{"simulatorUuid": "UUID", "text": "testuser"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 4. Tap on password field
 npx reloaderoo@latest inspect call-tool tap \
   --params '{"simulatorUuid": "UUID", "x": 150, "y": 280}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 5. Type password
 npx reloaderoo@latest inspect call-tool type_text \
   --params '{"simulatorUuid": "UUID", "text": "password123"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 6. Tap login button
 npx reloaderoo@latest inspect call-tool tap \
   --params '{"simulatorUuid": "UUID", "x": 150, "y": 360}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### Scroll and Screenshot Testing
@@ -208,17 +208,17 @@ npx reloaderoo@latest inspect call-tool tap \
 # 1. Take initial screenshot
 npx reloaderoo@latest inspect call-tool screenshot \
   --params '{"simulatorUuid": "UUID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 2. Scroll down
 npx reloaderoo@latest inspect call-tool gesture \
   --params '{"simulatorUuid": "UUID", "preset": "scroll-down"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Take screenshot after scroll
 npx reloaderoo@latest inspect call-tool screenshot \
   --params '{"simulatorUuid": "UUID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### Navigation Testing
@@ -226,17 +226,17 @@ npx reloaderoo@latest inspect call-tool screenshot \
 # 1. Tap a cell in a list
 npx reloaderoo@latest inspect call-tool tap \
   --params '{"simulatorUuid": "UUID", "x": 200, "y": 150}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 2. Wait and verify UI (describe_ui)
 npx reloaderoo@latest inspect call-tool describe_ui \
   --params '{"simulatorUuid": "UUID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Go back (swipe from left edge or tap back button)
 npx reloaderoo@latest inspect call-tool swipe \
   --params '{"simulatorUuid": "UUID", "x1": 10, "y1": 200, "x2": 200, "y2": 200}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### Form Testing with Keyboard
@@ -244,22 +244,22 @@ npx reloaderoo@latest inspect call-tool swipe \
 # 1. Tap first field
 npx reloaderoo@latest inspect call-tool tap \
   --params '{"simulatorUuid": "UUID", "x": 150, "y": 200}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 2. Type text
 npx reloaderoo@latest inspect call-tool type_text \
   --params '{"simulatorUuid": "UUID", "text": "John Doe"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Press Return to move to next field
 npx reloaderoo@latest inspect call-tool key_press \
   --params '{"simulatorUuid": "UUID", "keyCode": 40}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 4. Type in next field
 npx reloaderoo@latest inspect call-tool type_text \
   --params '{"simulatorUuid": "UUID", "text": "john@example.com"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ## Tips for Effective UI Automation

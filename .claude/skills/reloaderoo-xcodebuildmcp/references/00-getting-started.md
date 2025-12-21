@@ -16,7 +16,7 @@ npx reloaderoo@latest --help
 All Reloaderoo commands follow this structure:
 
 ```bash
-npx reloaderoo@latest inspect call-tool <tool-name> --params '<json-params>' -- node build/index.js
+npx reloaderoo@latest inspect call-tool <tool-name> --params '<json-params>' -q -- npx xcodebuildmcp@latest
 ```
 
 **Components Explained:**
@@ -24,7 +24,8 @@ npx reloaderoo@latest inspect call-tool <tool-name> --params '<json-params>' -- 
 - `inspect call-tool` - Invokes a specific MCP tool
 - `<tool-name>` - The XcodeBuildMCP tool name (e.g., `list_sims`, `build_sim`)
 - `--params '<json>'` - Tool parameters as a JSON string (single quotes required)
-- `-- node build/index.js` - The XcodeBuildMCP server command
+- `-q` - Quiet mode for cleaner output
+- `-- npx xcodebuildmcp@latest` - The XcodeBuildMCP server command
 
 ## Common Parameters
 
@@ -77,37 +78,37 @@ XcodeBuildMCP provides resources for common queries:
 
 ```bash
 # List all simulators (same as list_sims tool)
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -q -- npx xcodebuildmcp@latest
 
 # List all physical devices (same as list_devices tool)
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -q -- npx xcodebuildmcp@latest
 
 # System diagnostics (same as doctor tool)
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -q -- npx xcodebuildmcp@latest
 ```
 
 ## Quick Examples
 
 ### List iOS Simulators
 ```bash
-npx reloaderoo@latest inspect call-tool list_sims --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool list_sims --params '{}' -q -- npx xcodebuildmcp@latest
 ```
 
 ### List Physical Devices
 ```bash
-npx reloaderoo@latest inspect call-tool list_devices --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool list_devices --params '{}' -q -- npx xcodebuildmcp@latest
 ```
 
 ### System Diagnostics
 ```bash
-npx reloaderoo@latest inspect call-tool doctor --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool doctor --params '{}' -q -- npx xcodebuildmcp@latest
 ```
 
 ### Dynamic Tool Discovery
 ```bash
 npx reloaderoo@latest inspect call-tool discover_tools \
   --params '{"task_description": "I want to build and run my iOS app on a simulator."}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ## Tips for Success

@@ -10,7 +10,7 @@ Starts log capture for an iOS simulator app.
 ```bash
 npx reloaderoo@latest inspect call-tool start_sim_log_cap \
   --params '{"simulatorUuid": "SIMULATOR-UUID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Returns:** Log session ID for stopping capture later.
@@ -27,7 +27,7 @@ Stops log capture for a simulator and retrieves captured logs.
 ```bash
 npx reloaderoo@latest inspect call-tool stop_sim_log_cap \
   --params '{"logSessionId": "SESSION-ID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Returns:** Complete captured log output since `start_sim_log_cap`.
@@ -42,7 +42,7 @@ Starts log capture for a physical device app.
 ```bash
 npx reloaderoo@latest inspect call-tool start_device_log_cap \
   --params '{"deviceId": "DEVICE-UDID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Returns:** Log session ID for stopping capture later.
@@ -58,7 +58,7 @@ Stops log capture for a physical device and retrieves logs.
 ```bash
 npx reloaderoo@latest inspect call-tool stop_device_log_cap \
   --params '{"logSessionId": "SESSION-ID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Returns:** Complete captured log output since `start_device_log_cap`.
@@ -69,7 +69,7 @@ npx reloaderoo@latest inspect call-tool stop_device_log_cap \
 Runs comprehensive system diagnostics for XcodeBuildMCP environment.
 
 ```bash
-npx reloaderoo@latest inspect call-tool doctor --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool doctor --params '{}' -q -- npx xcodebuildmcp@latest
 ```
 
 **Checks:**
@@ -97,7 +97,7 @@ Analyzes a task description and suggests relevant XcodeBuildMCP workflow groups.
 ```bash
 npx reloaderoo@latest inspect call-tool discover_tools \
   --params '{"task_description": "I want to build and run my iOS app on a simulator."}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Returns:** Recommended workflow groups and tools based on task analysis.
@@ -119,7 +119,7 @@ XcodeBuildMCP exposes resources for common queries without requiring specific to
 Lists all available iOS simulators.
 
 ```bash
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -q -- npx xcodebuildmcp@latest
 ```
 
 **Equivalent to:** `list_sims` tool
@@ -130,7 +130,7 @@ npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -- node
 Lists all connected physical devices.
 
 ```bash
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -q -- npx xcodebuildmcp@latest
 ```
 
 **Equivalent to:** `list_devices` tool
@@ -141,7 +141,7 @@ npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -- node bu
 System diagnostics information.
 
 ```bash
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -q -- npx xcodebuildmcp@latest
 ```
 
 **Equivalent to:** `doctor` tool
@@ -152,7 +152,7 @@ npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -- node bui
 Lists all running Swift package processes.
 
 ```bash
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://swift-packages" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://swift-packages" -q -- npx xcodebuildmcp@latest
 ```
 
 **Equivalent to:** `swift_package_list` tool
@@ -166,13 +166,13 @@ npx reloaderoo@latest inspect read-resource "xcodebuildmcp://swift-packages" -- 
 # 1. Launch app with log capture
 npx reloaderoo@latest inspect call-tool launch_app_logs_sim \
   --params '{"simulatorId": "UUID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 # Returns session ID automatically
 
 # Alternative: Start capture separately
 npx reloaderoo@latest inspect call-tool start_sim_log_cap \
   --params '{"simulatorUuid": "UUID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 # Returns: {"logSessionId": "SESSION-ID"}
 
 # 2. Perform test actions (use UI automation tools)
@@ -181,7 +181,7 @@ npx reloaderoo@latest inspect call-tool start_sim_log_cap \
 # 3. Stop capture and retrieve logs
 npx reloaderoo@latest inspect call-tool stop_sim_log_cap \
   --params '{"logSessionId": "SESSION-ID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### Complete Log Capture Workflow (Device)
@@ -189,20 +189,20 @@ npx reloaderoo@latest inspect call-tool stop_sim_log_cap \
 # 1. Start log capture
 npx reloaderoo@latest inspect call-tool start_device_log_cap \
   --params '{"deviceId": "DEVICE-UDID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 # Returns: {"logSessionId": "SESSION-ID"}
 
 # 2. Launch the app
 npx reloaderoo@latest inspect call-tool launch_app_device \
   --params '{"deviceId": "DEVICE-UDID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Perform test actions
 
 # 4. Stop capture and retrieve logs
 npx reloaderoo@latest inspect call-tool stop_device_log_cap \
   --params '{"logSessionId": "SESSION-ID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### Automated Testing with Log Validation
@@ -210,32 +210,32 @@ npx reloaderoo@latest inspect call-tool stop_device_log_cap \
 # 1. Build and run app with logs
 npx reloaderoo@latest inspect call-tool build_run_sim \
   --params '{"projectPath": "/path/to/project.xcodeproj", "scheme": "MyScheme", "simulatorName": "iPhone 16"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 2. Start log capture
 npx reloaderoo@latest inspect call-tool start_sim_log_cap \
   --params '{"simulatorUuid": "UUID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Perform UI automation (see 04-ui-automation.md)
 npx reloaderoo@latest inspect call-tool tap \
   --params '{"simulatorUuid": "UUID", "x": 100, "y": 200}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 4. Retrieve and validate logs
 npx reloaderoo@latest inspect call-tool stop_sim_log_cap \
   --params '{"logSessionId": "SESSION-ID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 # Parse logs to verify expected behavior
 ```
 
 ### CI/CD Pre-Flight Check
 ```bash
 # Run doctor to validate environment
-npx reloaderoo@latest inspect call-tool doctor --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool doctor --params '{}' -q -- npx xcodebuildmcp@latest
 
 # Or use resource
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -q -- npx xcodebuildmcp@latest
 
 # Check for any failures in output before proceeding with builds
 ```
@@ -243,10 +243,10 @@ npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -- node bui
 ### Resource-Based Discovery
 ```bash
 # Quick check of available simulators without tool call
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -q -- npx xcodebuildmcp@latest
 
 # Quick check of connected devices
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -q -- npx xcodebuildmcp@latest
 
 # Use for CI/CD validation or pre-flight checks
 ```

@@ -7,7 +7,7 @@ description: This skill should be used when you need to interact with XcodeBuild
 
 ## Overview
 
-This skill provides efficient CLI-based access to XcodeBuildMCP tools using Reloaderoo, optimized for context window conservation. Instead of loading the full MCP server and all 84+ tools into context, load only the workflow-specific catalogs needed for your task.
+This skill provides efficient CLI-based access to XcodeBuildMCP tools using Reloaderoo, optimized for context window conservation. Instead of loading the full MCP server and all 87+ tools into context, load only the workflow-specific catalogs needed for your task.
 
 **Key Benefits:**
 - **Context Efficient**: Load only relevant workflow catalogs (~30-55 lines each)
@@ -34,7 +34,7 @@ Use this skill when:
 All Reloaderoo commands follow this structure:
 
 ```bash
-npx reloaderoo@latest inspect call-tool <tool-name> --params '<json-params>' -- node build/index.js
+npx reloaderoo@latest inspect call-tool <tool-name> --params '<json-params>' -q -- npx xcodebuildmcp@latest
 ```
 
 **Components:**
@@ -42,11 +42,28 @@ npx reloaderoo@latest inspect call-tool <tool-name> --params '<json-params>' -- 
 - `inspect call-tool` - Invokes a specific MCP tool
 - `<tool-name>` - The XcodeBuildMCP tool to call
 - `--params '<json>'` - Tool parameters as JSON string (single quotes required)
-- `-- node build/index.js` - The XcodeBuildMCP server command
+- `-q` - Quiet mode for cleaner output
+- `-- npx xcodebuildmcp@latest` - The XcodeBuildMCP server command
 
 **Example:**
 ```bash
-npx reloaderoo@latest inspect call-tool list_sims --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool list_sims --params '{}' -q -- npx xcodebuildmcp@latest
+```
+
+## Deployment Contexts
+
+This skill supports two deployment modes:
+
+**External Projects (Default):**
+Use `npx xcodebuildmcp@latest` for portable access from any project:
+```bash
+npx reloaderoo@latest inspect call-tool list_sims --params '{}' -q -- npx xcodebuildmcp@latest
+```
+
+**XcodeBuildMCP Development:**
+When developing XcodeBuildMCP itself, use `node build/index.js`:
+```bash
+npx reloaderoo@latest inspect call-tool list_sims --params '{}' -q -- node build/index.js
 ```
 
 ## Workflow Navigation
@@ -73,6 +90,9 @@ Each reference file contains 6-13 tools focused on a specific development workfl
 **Project Management:**
 - `references/06-project-management.md` - Discovery, scaffolding, utilities (8 tools)
 
+**Session Configuration:**
+- `references/08-session-management.md` - Session defaults for reduced repetition (3 tools)
+
 ### Quick Workflow Selection
 
 **"I want to build and test my iOS app on a simulator"**
@@ -92,6 +112,9 @@ Each reference file contains 6-13 tools focused on a specific development workfl
 
 **"I'm debugging and need log capture"**
 → Read `references/07-advanced-features.md`
+
+**"I want to set defaults so I don't repeat project/simulator parameters"**
+→ Read `references/08-session-management.md`
 
 ## Using the Helper Scripts
 
@@ -143,7 +166,7 @@ For the initial workflow selection, you can use the `discover_tools` tool:
 ```bash
 npx reloaderoo@latest inspect call-tool discover_tools \
   --params '{"task_description": "I want to build and run my iOS app on a simulator."}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 This analyzes your task and suggests the most relevant workflow group.
@@ -154,13 +177,13 @@ XcodeBuildMCP provides resources for common queries:
 
 ```bash
 # List all simulators
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://simulators" -q -- npx xcodebuildmcp@latest
 
 # List all devices
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://devices" -q -- npx xcodebuildmcp@latest
 
 # System diagnostics
-npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -- node build/index.js
+npx reloaderoo@latest inspect read-resource "xcodebuildmcp://doctor" -q -- npx xcodebuildmcp@latest
 ```
 
 ## Bundled Resources
@@ -181,6 +204,7 @@ Workflow-specific tool catalogs loaded on-demand:
 - `05-swift-packages.md` - Swift Package Manager
 - `06-project-management.md` - Project discovery and scaffolding
 - `07-advanced-features.md` - Log capture, diagnostics, resources
+- `08-session-management.md` - Session defaults for reduced repetition
 
 ### assets/
 Currently empty - no asset files needed for this skill.

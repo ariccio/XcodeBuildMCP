@@ -8,7 +8,7 @@ Complete reference for iOS physical device development, deployment, and testing.
 Lists all connected physical iOS devices with their UDIDs, names, and connection status.
 
 ```bash
-npx reloaderoo@latest inspect call-tool list_devices --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool list_devices --params '{}' -q -- npx xcodebuildmcp@latest
 ```
 
 **Returns:** Device UDID, name, model, iOS version, and connection state.
@@ -21,7 +21,7 @@ Builds an app for a physical iOS device.
 ```bash
 npx reloaderoo@latest inspect call-tool build_device \
   --params '{"projectPath": "/path/to/MyProject.xcodeproj", "scheme": "MyScheme"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Requirements:**
@@ -35,7 +35,7 @@ Gets the `.app` bundle path for a device build.
 ```bash
 npx reloaderoo@latest inspect call-tool get_device_app_path \
   --params '{"projectPath": "/path/to/MyProject.xcodeproj", "scheme": "MyScheme"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Use case:** Retrieve the built app path for manual inspection or deployment.
@@ -46,7 +46,7 @@ Installs an app bundle on a connected physical device.
 ```bash
 npx reloaderoo@latest inspect call-tool install_app_device \
   --params '{"deviceId": "DEVICE-UDID", "appPath": "/path/to/MyApp.app"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Requirements:**
@@ -62,7 +62,7 @@ Launches an installed app on a physical device.
 ```bash
 npx reloaderoo@latest inspect call-tool launch_app_device \
   --params '{"deviceId": "DEVICE-UDID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Note:** App must be already installed on the device.
@@ -73,7 +73,7 @@ Stops a running app on a physical device.
 ```bash
 npx reloaderoo@latest inspect call-tool stop_app_device \
   --params '{"deviceId": "DEVICE-UDID", "processId": 12345}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Getting Process ID:** Use device log capture or monitoring tools to find the app's process ID.
@@ -86,7 +86,7 @@ Runs tests on a connected physical device.
 ```bash
 npx reloaderoo@latest inspect call-tool test_device \
   --params '{"projectPath": "/path/to/MyProject.xcodeproj", "scheme": "MyScheme", "deviceId": "DEVICE-UDID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Requirements:**
@@ -99,38 +99,38 @@ npx reloaderoo@latest inspect call-tool test_device \
 ### Complete Build-Deploy-Run Workflow
 ```bash
 # 1. List connected devices to get UDID
-npx reloaderoo@latest inspect call-tool list_devices --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool list_devices --params '{}' -q -- npx xcodebuildmcp@latest
 
 # 2. Build the app for device
 npx reloaderoo@latest inspect call-tool build_device \
   --params '{"projectPath": "/path/to/MyProject.xcodeproj", "scheme": "MyScheme"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Get the built app path
 npx reloaderoo@latest inspect call-tool get_device_app_path \
   --params '{"projectPath": "/path/to/MyProject.xcodeproj", "scheme": "MyScheme"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 4. Install on device
 npx reloaderoo@latest inspect call-tool install_app_device \
   --params '{"deviceId": "DEVICE-UDID", "appPath": "/path/to/build/MyApp.app"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 5. Launch the app
 npx reloaderoo@latest inspect call-tool launch_app_device \
   --params '{"deviceId": "DEVICE-UDID", "bundleId": "com.example.MyApp"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### Device Testing Workflow
 ```bash
 # 1. Verify device connection
-npx reloaderoo@latest inspect call-tool list_devices --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool list_devices --params '{}' -q -- npx xcodebuildmcp@latest
 
 # 2. Run tests on device
 npx reloaderoo@latest inspect call-tool test_device \
   --params '{"projectPath": "/path/to/MyProject.xcodeproj", "scheme": "MyScheme", "deviceId": "DEVICE-UDID"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ## Troubleshooting Common Issues

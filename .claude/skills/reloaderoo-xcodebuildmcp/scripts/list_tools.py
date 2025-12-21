@@ -31,7 +31,7 @@ def run_reloaderoo_command(command: List[str]) -> Dict:
     """
     try:
         # Build full command
-        full_cmd = ['npx', 'reloaderoo@latest'] + command + ['--', 'node', 'build/index.js']
+        full_cmd = ['npx', 'reloaderoo@latest'] + command + ['-q', '--', 'npx', 'xcodebuildmcp@latest']
 
         # Execute command
         result = subprocess.run(
@@ -70,6 +70,7 @@ def categorize_tools(tools: List[Dict]) -> Dict[str, List[Dict]]:
         'UI Automation': [],
         'Swift Packages': [],
         'Project Management': [],
+        'Session Management': [],
         'Log Capture': [],
         'System Diagnostics': [],
         'Utilities': []
@@ -82,6 +83,7 @@ def categorize_tools(tools: List[Dict]) -> Dict[str, List[Dict]]:
     ui_keywords = ['tap', 'swipe', 'screenshot', 'describe_ui', 'gesture', 'button', 'key_', 'touch', 'type_text']
     swift_keywords = ['swift_package']
     project_keywords = ['discover_proj', 'list_scheme', 'show_build', 'scaffold', 'get_app_bundle', 'get_mac_bundle']
+    session_keywords = ['session']
     log_keywords = ['log_cap']
     diagnostic_keywords = ['doctor']
 
@@ -107,6 +109,9 @@ def categorize_tools(tools: List[Dict]) -> Dict[str, List[Dict]]:
             categorized = True
         if any(kw in name for kw in project_keywords):
             categories['Project Management'].append(tool)
+            categorized = True
+        if any(kw in name for kw in session_keywords):
+            categories['Session Management'].append(tool)
             categorized = True
         if any(kw in name for kw in log_keywords):
             categories['Log Capture'].append(tool)

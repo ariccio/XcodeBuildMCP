@@ -10,7 +10,7 @@ Builds a Swift package.
 ```bash
 npx reloaderoo@latest inspect call-tool swift_package_build \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Requirements:**
@@ -24,7 +24,7 @@ Cleans build artifacts for a Swift package.
 ```bash
 npx reloaderoo@latest inspect call-tool swift_package_clean \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Effect:** Removes `.build/` directory and derived data.
@@ -42,7 +42,7 @@ Runs tests for a Swift package.
 ```bash
 npx reloaderoo@latest inspect call-tool swift_package_test \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Requirements:**
@@ -59,7 +59,7 @@ Runs an executable target from a Swift package.
 ```bash
 npx reloaderoo@latest inspect call-tool swift_package_run \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Requirements:**
@@ -72,7 +72,7 @@ npx reloaderoo@latest inspect call-tool swift_package_run \
 Lists all running Swift package processes.
 
 ```bash
-npx reloaderoo@latest inspect call-tool swift_package_list --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool swift_package_list --params '{}' -q -- npx xcodebuildmcp@latest
 ```
 
 **Returns:** Process IDs and package names of running Swift executables.
@@ -85,7 +85,7 @@ Stops a running Swift package process.
 ```bash
 npx reloaderoo@latest inspect call-tool swift_package_stop \
   --params '{"pid": 12345}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 **Parameters:**
@@ -98,17 +98,17 @@ npx reloaderoo@latest inspect call-tool swift_package_stop \
 # 1. Clean previous builds
 npx reloaderoo@latest inspect call-tool swift_package_clean \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 2. Build the package
 npx reloaderoo@latest inspect call-tool swift_package_build \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Run tests
 npx reloaderoo@latest inspect call-tool swift_package_test \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### Run and Monitor Workflow
@@ -116,16 +116,16 @@ npx reloaderoo@latest inspect call-tool swift_package_test \
 # 1. Run the executable
 npx reloaderoo@latest inspect call-tool swift_package_run \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 # Output: {"processId": 12345}
 
 # 2. List running processes to verify
-npx reloaderoo@latest inspect call-tool swift_package_list --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool swift_package_list --params '{}' -q -- npx xcodebuildmcp@latest
 
 # 3. Stop when done
 npx reloaderoo@latest inspect call-tool swift_package_stop \
   --params '{"pid": 12345}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### CI/CD Testing Workflow
@@ -133,38 +133,38 @@ npx reloaderoo@latest inspect call-tool swift_package_stop \
 # 1. Clean state
 npx reloaderoo@latest inspect call-tool swift_package_clean \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 2. Build (fails fast if compilation errors)
 npx reloaderoo@latest inspect call-tool swift_package_build \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Run tests (fails if tests fail)
 npx reloaderoo@latest inspect call-tool swift_package_test \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ### Development Server Workflow
 ```bash
 # 1. Stop any previous instance
-npx reloaderoo@latest inspect call-tool swift_package_list --params '{}' -- node build/index.js
+npx reloaderoo@latest inspect call-tool swift_package_list --params '{}' -q -- npx xcodebuildmcp@latest
 # Find the PID from output
 
 npx reloaderoo@latest inspect call-tool swift_package_stop \
   --params '{"pid": OLD_PID}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 2. Rebuild
 npx reloaderoo@latest inspect call-tool swift_package_build \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 
 # 3. Start new instance
 npx reloaderoo@latest inspect call-tool swift_package_run \
   --params '{"packagePath": "/path/to/package"}' \
-  -- node build/index.js
+  -q -- npx xcodebuildmcp@latest
 ```
 
 ## Package.swift Conventions

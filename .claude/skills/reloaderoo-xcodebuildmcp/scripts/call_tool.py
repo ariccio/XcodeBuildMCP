@@ -31,7 +31,7 @@ def run_reloaderoo_inspect(command: List[str]) -> Dict:
     """
     try:
         # Build full command
-        full_cmd = ['npx', 'reloaderoo@latest', 'inspect'] + command + ['--', 'node', 'build/index.js']
+        full_cmd = ['npx', 'reloaderoo@latest', 'inspect'] + command + ['-q', '--', 'npx', 'xcodebuildmcp@latest']
 
         # Execute command
         result = subprocess.run(
